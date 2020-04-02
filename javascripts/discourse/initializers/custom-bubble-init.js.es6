@@ -22,10 +22,10 @@ const bubbleEdits = (api) => {
         }
       });
     },
-      customUnreadCount(){
-        return this.getItems().filter((notif) => {
-           return (![5, 12].includes(notif.notification_type) && !notif.read)
-        }).length || 0 ;
+    customUnreadCount(){
+      return this.getItems().filter((notif) => {
+          return (![5, 12].includes(notif.notification_type) && !notif.read)
+      }).length || 0 ;
     },
   });
 } 
