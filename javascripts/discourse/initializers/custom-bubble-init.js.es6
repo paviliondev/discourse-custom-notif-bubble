@@ -15,7 +15,6 @@ const bubbleEdits = (api) => {
       }
       const appEvents = api._lookupContainer('service:app-events');
       appEvents.on('notifications:changed', () => {
-        debugger;
         let currentUser = this.currentUser;
         if(this.customUnreadCount() > currentUser.get('unread_notifications')) {
           currentUser.set("unread_notifications", this.customUnreadCount());
