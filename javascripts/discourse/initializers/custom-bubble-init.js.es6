@@ -29,7 +29,7 @@ const customUnreadCount = (currentUser) => {
       if (!currentUser.enforcedSecondFactor) {
         let notifications = response['notifications'];
         let unread = notifications.filter((notif) => {
-              return (![5, 12].includes(notif.notification_type) && !notif.read)
+              return (![5,6,12].includes(notif.notification_type) && !notif.read)
           }).length || 0 ;
 
           if(unread > currentUser.unread_notifications) {
