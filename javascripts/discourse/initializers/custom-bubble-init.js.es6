@@ -1,7 +1,7 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
 import { ajax } from "discourse/lib/ajax";
 import { popupAjaxError } from "discourse/lib/ajax-error";
-
+import { later } from '@ember/runloop';
 
 export default {
   name: "custom-notif-bubble",
@@ -11,12 +11,20 @@ export default {
 }
 
 const bubbleEdits = (api) => {
-  customUnreadCount(api.getCurrentUser());
+  api.onPageChange((url, title) => {
+    later(api, function() {
+      customUnreadCount(this.getCurrentUser());
+    }, 500);
+    
+  });
+
   api.reopenWidget('quick-access-notifications', {
     newItemsLoaded() {
       const appEvents = api._lookupContainer('service:app-events');
       appEvents.on('notifications:changed', () => {
-        customUnreadCount(this.currentUser);
+        later(api, function() {
+          customUnreadCount(this.getCurrentUser());
+        }, 500);
       });
     },
   });
