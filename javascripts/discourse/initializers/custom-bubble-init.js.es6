@@ -14,7 +14,7 @@ const bubbleEdits = (api) => {
   api.onPageChange((url, title) => {
     later(api, function() {
       customUnreadCount(this.getCurrentUser());
-    }, 500);
+    }, 1000);
     
   });
 
