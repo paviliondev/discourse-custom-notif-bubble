@@ -11,10 +11,15 @@ export default {
 }
 
 const bubbleEdits = (api) => {
-  api.onAppEvent('notifications:changed', () => {
-    later(api, function() {
-      customUnreadCount(this.getCurrentUser());
-    }, 500);
+  api.reopenWidget('quick-access-notifications', {
+    newItemsLoaded() {
+      const appEvents = api._lookupContainer('service:app-events');
+      appEvents.on('notifications:changed', () => {
+        later(api, function() {
+          customUnreadCount(this.getCurrentUser());
+        }, 500);
+      });
+    },
   });
 }
 
