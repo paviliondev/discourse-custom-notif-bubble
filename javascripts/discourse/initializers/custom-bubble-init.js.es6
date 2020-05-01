@@ -66,9 +66,7 @@ const bubbleEdits = (api) => {
     _findStaleItemsInStore() {
       return this.store.findStale(
         "notification",
-        {
-          read: false
-        },
+        { read: false },
         { cacheKey: "recent-notifications" }
       );
     }
