@@ -1,0 +1,5 @@
+en:
+  filters:
+    text: "Filter :"
+    latest: "Latest"
+    unread: "Unread"
