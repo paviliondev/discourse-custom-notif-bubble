@@ -26,7 +26,7 @@ const bubbleEdits = (api) => {
         let unreadCount = this.getItems()
                               .filterBy('read', false)
                               .filter((item) =>
-                               ![5, 6, 12, 19].includes(item.notification_type))
+                               ![5, 6, 12, 19, 24].includes(item.notification_type))
                               .length;
         this.currentUser.set("unread_notifications", unreadCount)
       }
