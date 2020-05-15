@@ -40,25 +40,6 @@ const bubbleEdits = (api) => {
       return items.slice(0, 15);
     },
 
-    html(attrs, state){
-      let items = [];
-      items.push(h('span', {htmlFor: 'notif-filter'}, I18n.t(themePrefix('filters.text'))));
-
-      items.push(this.attach("widget-dropdown", {
-        id: 'notif-filter',
-        label: themePrefix(`filters.${this.state['filter']}`),
-        content: [
-          { id: 'latest', label: themePrefix('filters.latest') },
-          { id: 'unread', label: themePrefix('filters.unread') },
-        ],
-        notifState: this.state,
-        onChange: this.updateFilter
-      }));
-
-      items.push(this._super(attrs, state));
-      return items;
-    },
-
     updateFilter(filter){
       this.notifState['filter'] = filter['id'];
     },
