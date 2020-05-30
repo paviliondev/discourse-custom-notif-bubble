@@ -15,7 +15,8 @@ const bubbleEdits = (api) => {
   api.reopenWidget('quick-access-notifications', {
     defaultState(){
       const def = this._super();
-      def['filter'] = 'latest';
+      let cached = getTransient('custom-notif-filter');
+      def['filter'] = cached ? cached['data'] : 'latest';
       return def;
     },
 
@@ -41,11 +42,6 @@ const bubbleEdits = (api) => {
     html(attrs, state){
       let items = [];
       items.push(h('span', {htmlFor: 'notif-filter'}, I18n.t(themePrefix('filters.text'))));
-      let cached = getTransient('custom-notif-filter');
-      if(cached) {
-        this.state['filter'] = cached['data'];
-      }
-
       items.push(this.attach("widget-dropdown", {
         id: 'notif-filter',
         label: themePrefix(`filters.${this.state['filter']}`),
