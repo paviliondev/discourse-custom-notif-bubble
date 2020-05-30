@@ -1,9 +1,7 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
-import { ajax } from "discourse/lib/ajax";
-import { popupAjaxError } from "discourse/lib/ajax-error";
-import { later } from '@ember/runloop';
 import { h } from "virtual-dom";
 import Session from "discourse/models/session";
+import { getTransient, setTransient } from "discourse/lib/page-tracker";
 
 export default {
   name: "custom-notif-bubble",
@@ -43,6 +41,10 @@ const bubbleEdits = (api) => {
     html(attrs, state){
       let items = [];
       items.push(h('span', {htmlFor: 'notif-filter'}, I18n.t(themePrefix('filters.text'))));
+      let cached = getTransient('custom-notif-filter');
+      if(cached) {
+        this.state['filter'] = cached['data'];
+      }
 
       items.push(this.attach("widget-dropdown", {
         id: 'notif-filter',
@@ -61,6 +63,7 @@ const bubbleEdits = (api) => {
 
     updateFilter(filter){
       this.notifState['filter'] = filter['id'];
+      setTransient('custom-notif-filter', filter['id']);
     },
 
     _findStaleItemsInStore() {
